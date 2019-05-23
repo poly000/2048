@@ -9,7 +9,7 @@
 
 W A S D
 
-↑ ← ↓ → (linux不可用)
+↑ ← ↓ →
 
 Q quit
 
