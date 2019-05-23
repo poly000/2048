@@ -1,6 +1,8 @@
 # 2048-C
 以C语言重写的2048
 
+[linux版本](https://github.com/poly000/2048-C/tree/linux)
+
 由<b>[2048](https://github.com/gabrielecirulli/2048)</b>重写而来
 
 规则可能有些不同。
