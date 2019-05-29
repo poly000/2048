@@ -17,7 +17,7 @@ Q quit
 
 R reset
 
-S save
+O save
 
 L load
 

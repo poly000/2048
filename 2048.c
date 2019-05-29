@@ -53,8 +53,8 @@ b:
 			fclose(fp);
 			printout(p);
 			goto b;
-		case 'S':
-		case 's':
+		case 'O':
+		case 'o':
 			fp=fopen("save.onk","wb+");
 			if(fp==0) {
 				fprintf(stderr,"save failed!\n");
