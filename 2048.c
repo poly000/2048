@@ -2,10 +2,10 @@
 #include <time.h>
 #include <stdlib.h>
 #include <conio.h>
-#include "add.h"
-#include "move.h"
-#include "newnum.h"
-#include "printout.h"
+void add(int *p,char input);
+void move(int *p,char input);
+void newnum(int *p);
+void printout(int *p);
 
 int main() {
 	register int i,j,k,*p=(int *)malloc(sizeof(int)*16),*q=(int *)malloc(sizeof(int)*16);
@@ -87,3 +87,7 @@ b:
 	goto b;
 }
 
+#include "add.c"
+#include "move.c"
+#include "newnum.c"
+#include "printout.c"
