@@ -77,7 +77,6 @@ b:
 	}
 	move(p,input);
 	add(p,input);
-	move(p,input);
 	for(j=0,i=0; i<16; i++)
 		if(*(q+i)==*(p+i)+k)
 			j++;

@@ -50,4 +50,5 @@ void add(int *p,char input) {
 				}
 			break;
 	}
+	move(p,input);
 }
