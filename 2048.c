@@ -10,42 +10,42 @@ void printout(int *p);
 int main() {
 	register int i,j,k,*p=(int *)malloc(sizeof(int)*16),*q=(int *)malloc(sizeof(int)*16);
 	FILE *fp;
-	if(p==0||q==0)
+	if (p == 0 || q == 0)
 		return 1;
-	for(i=0; i<16; i++)
-		*(p+i)=0;
+	for (i=0; i<16; i++)
+		*(p+i) = 0;
 	char input;
 a:
 	srand(time(0));
-	i=rand()%16;
-	*(p+i)=2;
+	i = rand()%16;
+	*(p+i) = 2;
 	do
-		j=rand()%16;
-	while(j==i);
-	*(p+j)=2;
+		j = rand()%16;
+	while (j == i);
+	*(p+j) = 2;
 	printout(p);
 b:
 	srand(time(0));
-	k=rand();
-	for(i=0; i<16; i++)
-		*(q+i)=*(p+i)+k;
-	input=(char)getch();
-	switch(input) {
+	k = rand();
+	for (i=0; i<16; i++)
+		*(q+i) = *(p+i)+k;
+	input = (char)getch();
+	switch (input) {
 		case -32:
-			input=(char)getch();
+			input = (char)getch();
 			break;
 		case 'r':
 		case 'R':
-			for(i=0; i<16; i++)
-				*(p+i)=0;
+			for (i=0; i<16; i++)
+				*(p+i) = 0;
 			goto a;
 		case 'q':
 		case 'Q':
 			return 0;
 		case 'l':
 		case 'L':
-			fp=fopen("save.onk","rb");
-			if(fp==0) {
+			fp = fopen("save.onk","rb");
+			if (fp == 0) {
 				fprintf(stderr,"load failed!\nhave you already saved?\n");
 				goto b;
 			}
@@ -55,8 +55,8 @@ b:
 			goto b;
 		case 'O':
 		case 'o':
-			fp=fopen("save.onk","wb+");
-			if(fp==0) {
+			fp = fopen("save.onk","wb+");
+			if (fp == 0) {
 				fprintf(stderr,"save failed!\n");
 				goto b;
 			}
@@ -68,8 +68,8 @@ b:
 			fprintf(stderr,"Invalid Type!\n");
 			break;
 	}
-	for(i=0; i<16; i++) {
-		if(*(q+i)!=*(p+i)+k) {
+	for (i=0; i<16; i++) {
+		if (*(q+i) != *(p+i)+k) {
 			fprintf(stderr,"DO NOT CHEAT! (PRESS A KEY TO EXIT)\n");
 			getch();
 			return 1;
@@ -77,10 +77,10 @@ b:
 	}
 	move(p,input);
 	add(p,input);
-	for(j=0,i=0; i<16; i++)
-		if(*(q+i)==*(p+i)+k)
+	for (j=0,i=0; i<16; i++)
+		if (*(q+i) == *(p+i)+k)
 			j++;
-	if(j!=16) {
+	if(j != 16) {
 		newnum(p);
 		printout(p);
 	}

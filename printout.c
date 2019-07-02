@@ -3,13 +3,13 @@ void printout(int *p) {
 	system("cls");
 	fprintf(stderr,"use R to reset\nuse Q to exit\nuse L to load savedata\nuse O to save savedata\n----------------------------\n\n");
 	for(i=0; i<16; i++) {
-		if(*(p+i)!=0)
+		if (*(p+i) != 0)
 			printf(" %5d",*(p+i));
 		else
 			printf("      ");
-		if(++j==4) {
+		if (++j == 4) {
 			printf("\n\n\n");
-			j=0;
+			j = 0;
 		}
 	}
 	fprintf(stderr,"----------------------------\n");
