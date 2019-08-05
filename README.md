@@ -1,7 +1,7 @@
 # 2048-C
 以C语言重写的2048
 
-由[2048](https://github.com/gabrielecirulli/2048)用C重写
+从[2048](https://github.com/gabrielecirulli/2048)用C重写
 
 操作方法：
 
