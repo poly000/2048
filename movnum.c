@@ -1,4 +1,4 @@
-void move(int *p,char input) {
+void movnum(int *p,char input) {
 	int i,j,*k;
 	switch (input) {
 		case 'W':

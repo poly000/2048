@@ -2,12 +2,15 @@
 #include <time.h>
 #include <stdlib.h>
 #include <conio.h>
-void add(int *p,char input);
-void move(int *p,char input);
-void newnum(int *p);
-void printout(int *p);
+
+#include "movnum.c"
+#include "add.c"
+#include "newnum.c"
+#include "printout.c"
+
 
 int main() {
+	time_t now = time(0);
 	register int i,j,k,*p=(int *)malloc(sizeof(int)*16),*q=(int *)malloc(sizeof(int)*16);
 	FILE *fp;
 	if (p == 0 || q == 0)
@@ -16,7 +19,7 @@ int main() {
 		*(p+i) = 0;
 	char input;
 a:
-	srand(time(0));
+	srand(++now);
 	i = rand()%16;
 	*(p+i) = 2;
 	do
@@ -25,7 +28,7 @@ a:
 	*(p+j) = 2;
 	printout(p);
 b:
-	srand(time(0));
+	srand(++now);
 	k = rand();
 	for (i=0; i<16; i++)
 		*(q+i) = *(p+i)+k;
@@ -75,19 +78,14 @@ b:
 			return 1;
 		}
 	}
-	move(p,input);
+	movnum(p,input);
 	add(p,input);
 	for (j=0,i=0; i<16; i++)
 		if (*(q+i) == *(p+i)+k)
 			j++;
 	if(j != 16) {
-		newnum(p);
+		newnum(&now,p);
 		printout(p);
 	}
 	goto b;
 }
-
-#include "add.c"
-#include "move.c"
-#include "newnum.c"
-#include "printout.c"

@@ -1,5 +1,5 @@
-void newnum(int *p) {
-	srand(time(0));
+void newnum(time_t *now,int *p) {
+	srand(++*now);
 	int i;
 	do {
 		i = rand()%16;
