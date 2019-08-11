@@ -1,5 +1,5 @@
 void movnum(int *p,char input) {
-	int i,j,*k;
+	register int i,j,*k;
 	switch (input) {
 		case 'W':
 		case 'w':

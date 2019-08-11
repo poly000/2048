@@ -1,6 +1,6 @@
 void newnum(time_t *now,int *p) {
 	srand(++*now);
-	int i;
+	register int i;
 	do i = rand()%16;
 	while(*(p+i)!=0);
 	if (rand()%10==0)

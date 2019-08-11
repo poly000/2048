@@ -1,5 +1,5 @@
 void printout(int *p) {
-	int i,j=0;
+	register int i,j=0;
 	system("cls");
 	fprintf(stderr,"use R to reset\nuse Q to exit\nuse L to load savedata\nuse O to save savedata\n----------------------------\n\n");
 	for(i=0; i<16; i++) {
