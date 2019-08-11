@@ -11,7 +11,8 @@
 
 int main() {
 	time_t now = time(0);
-	register int i,j,k,*p=(int *)malloc(sizeof(int)*16),*q=(int *)malloc(sizeof(int)*16);
+	register int i,j,k;
+	register int *p=(int *)malloc(sizeof(int)*16),*q=(int *)malloc(sizeof(int)*16);
 	FILE *fp;
 	if (p == 0 || q == 0)
 		return 1;
@@ -83,7 +84,7 @@ b:
 	for (j=0,i=0; i<16; i++)
 		if (*(q+i) == *(p+i)+k)
 			j++;
-	if(j != 16) {
+	if (j != 16) {
 		newnum(&now,p);
 		printout(p);
 	}
