@@ -19,5 +19,3 @@ R reset
 O save
 
 L load
-
-目前看来大概是没有bug
