@@ -1,5 +1,7 @@
 # 2048
 
+[![build status image](https://travis-ci.org/poly000/2048.svg?branch=master)](https://travis-ci.org/poly000/2048)
+
 以C语言重写的2048
 
 从[2048](https://github.com/gabrielecirulli/2048)用C重写
