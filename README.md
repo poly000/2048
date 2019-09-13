@@ -8,14 +8,14 @@
 
 操作方法：
 
-W A S D
+W A S D 或 ↑ ← ↓ →
 
-↑ ← ↓ →
+Q quit R reset
 
-Q quit
+O save L load
 
-R reset
+编译（仅Windows）：
 
-O save
-
-L load
+```
+gcc 2048.c func.c -O3 -pipe -o 2048
+```

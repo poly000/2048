@@ -1,4 +1,9 @@
-#include <2048.h>
+#include "2048.h"
+
+extern void movnum(int *,char);
+extern void newnum(time_t *,int *);
+extern void printout(int *);
+extern void add(int *,char);
 
 int main() {
 	time_t now = time(0);
@@ -36,6 +41,8 @@ b:
 			goto a;
 		case 'q':
 		case 'Q':
+			free(p);
+			free(q);
 			return 0;
 		case 'l':
 		case 'L':
