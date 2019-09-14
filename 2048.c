@@ -5,7 +5,7 @@ extern void newnum(time_t *,int *);
 extern void printout(int *);
 extern void add(int *,char);
 
-int main() {
+int main(void) {
 	time_t now = time(0);
 	register int i,j,k;
 	register int *p=(int *)malloc(sizeof(int)*16),*q=(int *)malloc(sizeof(int)*16);
