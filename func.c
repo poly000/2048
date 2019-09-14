@@ -9,7 +9,7 @@ void movnum(int *p,char input) {
 		case 72:
 		W:
       next = 0;
-			for (i=0; !(i&4); i++)
+			for (i=0; i<4; i++)
 				for (j=0; j<3; j++) {
 					k = p+i+(j<<2);
 					if (!(*k) && *(k+4)) { //如果“移动”时前方为0，移动并再次循环判断，否则打断循环
@@ -26,7 +26,7 @@ void movnum(int *p,char input) {
 		case 80:
 		S:
       next = 0;
-			for (i=0; !(i&4); i++)
+			for (i=0; i<4; i++)
 				for (j=2; j; j--) {
 					k = p+i+(j<<2);
 					if(*k && !(*(k+4))) {
@@ -43,10 +43,10 @@ void movnum(int *p,char input) {
 		case 75:
 		A:
       next = 0;
-			for (i=0; !(i&4); i++)
+			for (i=0; i<4; i++)
 				for (j=0; j<3; j++) {
 					k = p+(i<<2)+j;
-					if (!(*k) && !(*(k+1))) {
+					if (!(*k) && *(k+1)) {
 						*k = *(k+1);
 						*(k+1) = 0;
 						next = 1;
@@ -60,7 +60,7 @@ void movnum(int *p,char input) {
 		case 77:
 		D:
       next = 0;
-			for (i=0; !(i&4); i++)
+			for (i=0; i<4; i++)
 				for (j=2; j; j--) {
 					k = p+(i<<2)+j;
 					if(*k && !(*(k+1))) {
@@ -80,10 +80,11 @@ void newnum(time_t *now,int *p) {
 	register int i;
 	do i = rand()%16;
 	while(*(p+i));
-	if (!(rand()%10))
+	if (!(rand()%10)) {
 		*(p+i) = 4;
-else
+	} else {
 		*(p+i) = 2;
+	}
 }
 
 void printout(int *p) {
@@ -113,7 +114,7 @@ void add(int *p,char input) {
 		case 'W':
 		case 'w':
 		case 72:
-			for (i=0; !(i&4); i++)
+			for (i=0; i<4; i++)
 				for (j=0; j<3; j++) {
 					k = p+i+(j<<2);
 					if (*k & *(k+4)) {
@@ -125,7 +126,7 @@ void add(int *p,char input) {
 		case 'S':
 		case 's':
 		case 80:
-			for (i=0; !(i&4); i++)
+			for (i=0; i<4; i++)
 				for (j=2; j; j--) {
 					k = p+i+(j<<2);
 					if (*k & *(k+4)) {
@@ -137,7 +138,7 @@ void add(int *p,char input) {
 		case 'A':
 		case 'a':
 		case 75:
-			for (i=0; !(i&4); i++)
+			for (i=0; i<4; i++)
 				for (j=0; j<3; j++) {
 					k = p+(i<<2)+j;
 					if (*k & *(k+1)) {
@@ -149,7 +150,7 @@ void add(int *p,char input) {
 		case 'D':
 		case 'd':
 		case 77:
-			for (i=0; !(i&4); i++)
+			for (i=0; i<4; i++)
 				for (j=2; j; j--) {
 					k = p+(i<<2)+j;
 					if (*k & *(k+1)) {
