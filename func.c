@@ -27,7 +27,7 @@ void movnum(int *p,char input) {
 		S:
       next = 0;
 			for (i=0; i<4; i++)
-				for (j=2; j; j--) {
+				for (j=2; j>=0; j--) {
 					k = p+i+(j<<2);
 					if(*k && !(*(k+4))) {
 						*(k+4) = *k;
@@ -61,7 +61,7 @@ void movnum(int *p,char input) {
 		D:
       next = 0;
 			for (i=0; i<4; i++)
-				for (j=2; j; j--) {
+				for (j=2; j>=0; j--) {
 					k = p+(i<<2)+j;
 					if(*k && !(*(k+1))) {
 						*(k+1) = *k;
@@ -127,7 +127,7 @@ void add(int *p,char input) {
 		case 's':
 		case 80:
 			for (i=0; i<4; i++)
-				for (j=2; j; j--) {
+				for (j=2; j>=0; j--) {
 					k = p+i+(j<<2);
 					if (*k & *(k+4)) {
 						*(k+4) <<= 1;
@@ -151,7 +151,7 @@ void add(int *p,char input) {
 		case 'd':
 		case 77:
 			for (i=0; i<4; i++)
-				for (j=2; j; j--) {
+				for (j=2; j>=0; j--) {
 					k = p+(i<<2)+j;
 					if (*k & *(k+1)) {
 						*(k+1) <<= 1;
