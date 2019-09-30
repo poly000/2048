@@ -1,10 +1,5 @@
 #include "2048.h"
 
-extern void movnum(int *,char);
-extern void newnum(time_t *,int *);
-extern void printout(int *);
-extern void add(int *,char);
-
 int main(void) {
 	time_t now = time(0);
 	register int i,j,k;
