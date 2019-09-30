@@ -103,7 +103,7 @@ inline static void movnum(int *p,char input) {
       next = 0;
 			for (i=0; i<4; i++)
 				for (j=0; j<3; j++) {
-					k = p+(i&(j<<2));
+					k = p+(i|(j<<2));
 					if (!(*k) && *(k+4)) { //如果“移动”时前方为0，移动并再次循环判断，否则打断循环
 						*k = *(k+4);
 						*(k+4) = 0;
@@ -120,7 +120,7 @@ inline static void movnum(int *p,char input) {
       next = 0;
 			for (i=0; i<4; i++)
 				for (j=2; j>=0; j--) {
-					k = p+(i&(j<<2));
+					k = p+(i|(j<<2));
 					if(*k && !(*(k+4))) {
 						*(k+4) = *k;
 						*k = 0;
@@ -137,7 +137,7 @@ inline static void movnum(int *p,char input) {
       next = 0;
 			for (i=0; i<4; i++)
 				for (j=0; j<3; j++) {
-					k = p+((i<<2)&j);
+					k = p+((i<<2)|j);
 					if (!(*k) && *(k+1)) {
 						*k = *(k+1);
 						*(k+1) = 0;
@@ -154,7 +154,7 @@ inline static void movnum(int *p,char input) {
       next = 0;
 			for (i=0; i<4; i++)
 				for (j=2; j>=0; j--) {
-					k = p+((i<<2)&j);
+					k = p+((i<<2)|j);
 					if(*k && !(*(k+1))) {
 						*(k+1) = *k;
 						*k = 0;
@@ -208,7 +208,7 @@ inline static void add(int *p,char input) {
 		case 72:
 			for (i=0; i<4; i++)
 				for (j=0; j<3; j++) {
-					k = p+(i&(j<<2));
+					k = p+(i|(j<<2));
 					if (*k & *(k+4)) {
 						*k <<= 1;
 						*(k+4) = 0;
@@ -220,7 +220,7 @@ inline static void add(int *p,char input) {
 		case 80:
 			for (i=0; i<4; i++)
 				for (j=2; j>=0; j--) {
-					k = p+(i&(j<<2));
+					k = p+(i|(j<<2));
 					if (*k & *(k+4)) {
 						*(k+4) <<= 1;
 						*k = 0;
@@ -232,7 +232,7 @@ inline static void add(int *p,char input) {
 		case 75:
 			for (i=0; i<4; i++)
 				for (j=0; j<3; j++) {
-					k = p+((i<<2)&j);
+					k = p+((i<<2)|j);
 					if (*k & *(k+1)) {
 						*k <<= 1;
 						*(k+1) = 0;
@@ -244,7 +244,7 @@ inline static void add(int *p,char input) {
 		case 77:
 			for (i=0; i<4; i++)
 				for (j=2; j>=0; j--) {
-					k = p+((i<<2)&j);
+					k = p+((i<<2)|j);
 					if (*k & *(k+1)) {
 						*(k+1) <<= 1;
 						*k = 0;
