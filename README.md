@@ -17,5 +17,5 @@ O save L load
 编译（仅Windows）：
 
 ```
-gcc 2048.c func.c -O3 -pipe -o 2048
+gcc -std=c99 2048.c -o 2048
 ```
