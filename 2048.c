@@ -3,35 +3,32 @@
 #include <stdlib.h>
 #include <conio.h>
 
-inline static void movnum(int *,char);
-inline static void newnum(time_t *,int *);
-inline static void printout(int *);
-inline static void add(int *,char);
+#define JUST_FOR_FUN 0
+
+inline static void movnum(int [],char);
+inline static void newnum(time_t *,int []);
+inline static void printout(int []);
+inline static void add(int [],char);
 
 int main(void) {
 	time_t now = time(0);
-	register int i,j,k;
-	register int *p=(int *)malloc(sizeof(int)*16),*q=(int *)malloc(sizeof(int)*16);
-	FILE *fp;
-	if (p == 0 || q == 0)
-		return 1;
-	for (i=0; i<16; i++)
-		*(p+i) = 0;
+	register int i,j;
+	int p[16] = {0},q[16];
+	register FILE *fp;
 	char input;
-a:
+initialize:
 	srand(++now);
 	i = rand()%16;
-	*(p+i) = 2;
+	p[i] = 2;
 	do
 		j = rand()%16;
 	while (j == i);
-	*(p+j) = 2;
+	p[j] = 2;
 	printout(p);
-b:
-	srand(++now);
-	k = rand();
-	for (i=0; i<16; i++)
-		*(q+i) = *(p+i)+k;
+body:
+	for (i=0; i<16; i++) {
+		q[i] = p[i];
+	}
 	input = (char)getch();
 	switch (input) {
 		case -32:
@@ -40,19 +37,17 @@ b:
 		case 'r':
 		case 'R':
 			for (i=0; i<16; i++)
-				*(p+i) = 0;
-			goto a;
+				p[i] = 0;
+			goto initialize;
 		case 'q':
 		case 'Q':
-			free(p);
-			free(q);
 			return 0;
 		case 'l':
 		case 'L':
 			fp = fopen("save.onk","rb");
 			if (fp == 0) {
 				fprintf(stderr,"load failed!\nhave you already saved?\n");
-				goto b;
+				goto body;
 			}
 			fread(p,sizeof(int),16,fp);
 			fclose(fp);
@@ -73,28 +68,21 @@ b:
 			fprintf(stderr,"Invalid Type!\n");
 			break;
 	}
-	for (i=0; i<16; i++) {
-		if (*(q+i) != *(p+i)+k) {
-			fprintf(stderr,"DO NOT CHEAT! (PRESS A KEY TO EXIT)\n");
-			getch();
-			return 1;
-		}
-	}
 	movnum(p,input);
 	add(p,input);
 	for (j=0,i=0; i<16; i++)
-		if (*(q+i) == *(p+i)+k)
+		if (q[i] == p[i])
 			j++;
 	if (j != 16) {
 		newnum(&now,p);
 		printout(p);
 	}
-	goto b;
+	goto body;
 }
 
-inline static void movnum(int *p,char input) {
+inline static void movnum(int p[],char input) {
 	register int i,j,*k;
-  	_Bool next;
+  _Bool next;
 	switch (input) {
 		case 'W':
 		case 'w':
@@ -167,29 +155,25 @@ inline static void movnum(int *p,char input) {
 	}
 }
 
-inline static void newnum(time_t *now,int *p) {
+inline static void newnum(time_t *now,int p[]) {
 	srand(++*now);
 	register int i;
 	do i = rand()%16;
-	while(*(p+i));
-	if (!(rand()%10)) {
-		*(p+i) = 4;
-	} else {
-		*(p+i) = 2;
-	}
+	while(p[i]);
+	*(p+i) = rand()%10 ? 2 : 4;
 }
 
-inline static void printout(int *p) {
+inline static void printout(int p[]) {
 	register int i,j = 0;
 	system("cls");
 	fprintf(stderr,"use R to reset\n"
 		       "use Q to exit\n"
 		       "use L to load savedata\n"
 		       "use O to save savedata\n"
-		       "----------------------------\n\n");
+					 "----------------------------\n\n");
 	for(i=0; i<16; i++) {
-		if (*(p+i))
-			printf(" %5d",*(p+i));
+		if (p[i])
+			printf(" %5d",p[i]);
 		else
 			printf("      ");
 		if (++j & 4) {
