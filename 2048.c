@@ -52,18 +52,18 @@ body:
 			fread(p,sizeof(int),16,fp);
 			fclose(fp);
 			printout(p);
-			goto b;
+			goto body;
 		case 'O':
 		case 'o':
 			fp = fopen("save.onk","wb+");
 			if (fp == 0) {
 				fprintf(stderr,"save failed!\n");
-				goto b;
+				goto body;
 			}
 			fwrite(p,sizeof(int),16,fp);
 			fclose(fp);
 			fprintf(stderr,"have saved.\n");
-			goto b;
+			goto body;
 		default:
 			fprintf(stderr,"Invalid Type!\n");
 			break;
