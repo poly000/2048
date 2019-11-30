@@ -49,7 +49,7 @@ body:
 				fprintf(stderr,"load failed!\nhave you already saved?\n");
 				goto body;
 			}
-			fread(p,sizeof(int),16,fp);
+			fread(p,sizeof(int),(size_t)16,fp);
 			fclose(fp);
 			printout(p);
 			goto body;
@@ -60,7 +60,7 @@ body:
 				fprintf(stderr,"save failed!\n");
 				goto body;
 			}
-			fwrite(p,sizeof(int),16,fp);
+			fwrite(p,sizeof(int),(size_t)16,fp);
 			fclose(fp);
 			fprintf(stderr,"have saved.\n");
 			goto body;
@@ -158,7 +158,7 @@ inline static void movnum(int p[],char input) {
 inline static void newnum(time_t *now,int p[]) {
 	srand(++*now);
 	register int i;
-	do i = rand()%16;
+	do i = rand()&15;
 	while(p[i]);
 	*(p+i) = rand()%10 ? 2 : 4;
 }
