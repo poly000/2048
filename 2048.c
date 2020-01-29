@@ -238,3 +238,41 @@ inline static void add(int *p,char input) {
 	}
 	movnum(p,input);
 }
+
+inline static _Bool is_lost(int p[]) {
+	register _Bool l = 1;
+	register int i;
+	{
+		register int m,n;
+		for (m=p[0],i=1; i<16; i++) {
+			n = p[i];
+			if (m == n || m == 0)
+				l = 0;
+			m = n;
+		}
+		if (n == 0)
+			l = 0;
+	}
+	{
+		register int num0,num1,num2,num3;
+		for (i=4; i<16; i+=4) {
+			if (num0 == p[i]) {
+				l = 0;
+			}
+			num0 = p[i];
+			if (num1 == p[i+1]) {
+				l = 0;
+			}
+			num1 = p[i+1];
+			if (num2 == p[i+2]) {
+				l = 0;
+			}
+			num2 = p[i+2];
+			if (num3 == p[i+3]) {
+				l = 0;
+			}
+			num3 = p[i+3];
+		}
+	}
+	return l;
+}
