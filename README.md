@@ -10,9 +10,9 @@
 
 W A S D 或 ↑ ← ↓ →
 
-Q quit R reset
+Q 退出 R 重置
 
-O save L load
+O 存档 L 读档
 
 编译（仅Windows）：
 
