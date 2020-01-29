@@ -1,34 +1,34 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <conio.h>
 
 #define JUST_FOR_FUN 0
 
 inline static void movnum(int [],char);
 inline static void newnum(time_t *,int []);
-inline static void printout(int []);
+inline static void printout(time_t *,int []);
 inline static void add(int [],char);
+inline static _Bool is_lost(int []);
+inline static void lost(time_t *,int []);
 
 int main(void) {
 	time_t now = time(0);
 	register int i,j;
-	int p[16] = {0},q[16];
+	int p[16] = {0};
 	register FILE *fp;
 	char input;
 initialize:
 	srand(++now);
-	i = rand()%16;
+	i = rand()&15;
 	p[i] = 2;
 	do
-		j = rand()%16;
+		j = rand()&15;
 	while (j == i);
 	p[j] = 2;
-	printout(p);
+	printout(&now,p);
 body:
-	for (i=0; i<16; i++) {
-		q[i] = p[i];
-	}
 	input = (char)getch();
 	switch (input) {
 		case -32:
@@ -51,7 +51,7 @@ body:
 			}
 			fread(p,sizeof(int),(size_t)16,fp);
 			fclose(fp);
-			printout(p);
+			printout(&now,p);
 			goto body;
 		case 'O':
 		case 'o':
@@ -70,19 +70,59 @@ body:
 	}
 	movnum(p,input);
 	add(p,input);
-	for (j=0,i=0; i<16; i++)
-		if (q[i] == p[i])
-			j++;
-	if (j != 16) {
-		newnum(&now,p);
-		printout(p);
-	}
+	newnum(&now,p);
+	printout(&now,p);
 	goto body;
 }
 
+inline static void lost(time_t *now,int p[]) {
+	register int input;
+	register FILE * fp = NULL;
+	register int i,j;
+	if (is_lost(p)) {
+		printf("You lost!\n");
+		do {
+			input = getch();
+		} while(input != 'r' && input != 'q' &&
+		input != 'R' && input != 'Q' && input != 'l'
+		&& input != 'L');
+		switch (input) {
+			case 'R':
+			case 'r':
+				for (i=0; i<16; i++)
+					p[i] = 0;
+				srand(++*now);
+				i = rand()&15;
+				p[i] = 2;
+				do
+					j = rand()%16;
+				while (j == i);
+				p[j] = 2;
+				printout(now,p);
+				break;
+			case 'q':
+			case 'Q':
+				exit(1);
+				break;
+			case 'l':
+			case 'L':
+				fp = fopen("save.onk","rb");
+				if (fp == 0) {
+					fprintf(stderr,"load failed!\nhave you already saved?\n");
+					break;
+				}
+				fread(p,sizeof(int),(size_t)16,fp);
+				fclose(fp);
+				printout(now,p);
+				break;
+			default:
+				break;
+		}
+	}
+}
 inline static void movnum(int p[],char input) {
 	register int i,j,*k;
-  _Bool next;
+  bool next;
 	switch (input) {
 		case 'W':
 		case 'w':
@@ -92,7 +132,7 @@ inline static void movnum(int p[],char input) {
 			for (i=0; i<4; i++)
 				for (j=0; j<3; j++) {
 					k = p+(i|(j<<2));
-					if (!(*k) && *(k+4)) { //如果“移动”时前方为0，移动并再次循环判断，否则打断循环
+					if (!(*k) && *(k+4)) {
 						*k = *(k+4);
 						*(k+4) = 0;
 						next = 1;
@@ -149,7 +189,7 @@ inline static void movnum(int p[],char input) {
 						next = 1;
 					}
 				}
-      			if (next)
+    	if (next)
 				goto D;
 			break;
 	}
@@ -158,12 +198,23 @@ inline static void movnum(int p[],char input) {
 inline static void newnum(time_t *now,int p[]) {
 	srand(++*now);
 	register int i;
+	{
+		register _Bool full = 1;
+		for (i=0; i<16; i++) {
+			if (p[i] == 0) {
+				full = 0;
+				break;
+			}
+		}
+		if (full)
+			return;
+	}
 	do i = rand()&15;
 	while(p[i]);
 	*(p+i) = rand()%10 ? 2 : 4;
 }
 
-inline static void printout(int p[]) {
+inline static void printout(time_t *now,int p[]) {
 	register int i,j = 0;
 	system("cls");
 	fprintf(stderr,"use R to reset\n"
@@ -176,12 +227,13 @@ inline static void printout(int p[]) {
 			printf(" %5d",p[i]);
 		else
 			printf("      ");
-		if (++j & 4) {
+		if (++j > 3) {
 			printf("\n\n\n");
 			j = 0;
 		}
 	}
 	fprintf(stderr,"----------------------------\n");
+	lost(now,p);
 }
 
 inline static void add(int *p,char input) {
@@ -239,40 +291,42 @@ inline static void add(int *p,char input) {
 	movnum(p,input);
 }
 
-inline static _Bool is_lost(int p[]) {
-	register _Bool l = 1;
+inline static bool is_lost(int p[]) {
 	register int i;
 	{
 		register int m,n;
 		for (m=p[0],i=1; i<16; i++) {
 			n = p[i];
 			if (m == n || m == 0)
-				l = 0;
+				return false;
 			m = n;
 		}
 		if (n == 0)
-			l = 0;
+			return false;
 	}
 	{
-		register int num0,num1,num2,num3;
+		register int num0 = 0;
+		register int num1 = 0;
+		register int num2 = 0;
+		register int num3 = 0;
 		for (i=4; i<16; i+=4) {
 			if (num0 == p[i]) {
-				l = 0;
+				return false;
 			}
 			num0 = p[i];
 			if (num1 == p[i+1]) {
-				l = 0;
+				return false;
 			}
 			num1 = p[i+1];
 			if (num2 == p[i+2]) {
-				l = 0;
+				return false;
 			}
 			num2 = p[i+2];
 			if (num3 == p[i+3]) {
-				l = 0;
+				return false;
 			}
 			num3 = p[i+3];
 		}
 	}
-	return l;
+	return true;
 }
