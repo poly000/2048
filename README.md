@@ -1,5 +1,6 @@
 # 2048
 
+![WTFPL](http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-1.png)
 [![build status image](https://travis-ci.org/poly000/2048.svg?branch=master)](https://travis-ci.org/poly000/2048)
 
 以C语言重写的2048
