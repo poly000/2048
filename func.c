@@ -45,6 +45,7 @@ void lost(time_t *now,int p[]) {
 		}
 	}
 }
+
 void movnum(int p[],char input) {
 	register int i,j,*k;
   bool next;
