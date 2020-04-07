@@ -53,6 +53,7 @@ body:
 			goto body;
 		default:
 			fprintf(stderr,"Invalid Type!\n");
+			goto body;
 			break;
 	}
 	movnum(p,input);
