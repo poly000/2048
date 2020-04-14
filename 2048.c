@@ -18,6 +18,14 @@ initialize:
 body:
 	input = (char)getch();
 	switch (input) {
+		case 'A':
+		case 'a':
+		case 'W':
+		case 'w':
+		case 'S':
+		case 's':
+		case 'D':
+		case 'd':
 		case -32:
 			input = (char)getch();
 			break;
