@@ -5,7 +5,7 @@ void lost(time_t *now,int p[]) {
 	register FILE * fp = NULL;
 	register int i,j;
 	if (is_lost(p)) {
-		printf("You lost!\n");
+		printw("You lost!\n");
 		do {
 			input = getch();
 		} while(input != 'r' && input != 'q' &&
@@ -33,7 +33,7 @@ void lost(time_t *now,int p[]) {
 			case 'L':
 				fp = fopen("save.onk","rb");
 				if (fp == 0) {
-					fprintf(stderr,"load failed!\nhave you already saved?\n");
+					printw("load failed!\nhave you already saved?\n");
 					break;
 				}
 				fread(p,sizeof(int),(size_t)16,fp);
@@ -142,23 +142,23 @@ void newnum(time_t *now,int p[]) {
 
 void printout(time_t *now,int p[]) {
 	register int i,j = 0;
-	system("cls");
-	fprintf(stderr,"use R to reset\n"
+	clear(),
+	printw("use R to reset\n"
 		       "use Q to exit\n"
 		       "use L to load savedata\n"
 		       "use O to save savedata\n"
-					 "----------------------------\n\n");
+				"----------------------------\n\n");
 	for(i=0; i<16; i++) {
 		if (p[i])
-			printf(" %5d",p[i]);
+			printw(" %5d",p[i]);
 		else
-			printf("      ");
+			printw("      ");
 		if (++j > 3) {
-			printf("\n\n\n");
+			printw("\n\n\n");
 			j = 0;
 		}
 	}
-	fprintf(stderr,"----------------------------\n");
+	printw("----------------------------\n");
 	lost(now,p);
 }
 

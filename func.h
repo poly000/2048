@@ -2,7 +2,7 @@
 
 #define FUNC_H
 
-#include <conio.h>
+#include <curses.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>

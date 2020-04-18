@@ -6,6 +6,9 @@ int main(void) {
 	int p[16] = {0};
 	register FILE *fp;
 	char input;
+
+	initscr(), cbreak(), noecho();
+
 initialize:
 	srand(++now);
 	i = rand()&15;
@@ -26,8 +29,6 @@ body:
 		case 's':
 		case 'D':
 		case 'd':
-		case -32:
-			input = (char)getch();
 			break;
 		case 'r':
 		case 'R':
@@ -36,12 +37,13 @@ body:
 			goto initialize;
 		case 'q':
 		case 'Q':
+			  endwin();
 			return 0;
 		case 'l':
 		case 'L':
 			fp = fopen("save.onk","rb");
 			if (fp == 0) {
-				fprintf(stderr,"load failed!\nhave you already saved?\n");
+				printw("load failed!\nhave you already saved?\n");
 				goto body;
 			}
 			fread(p,sizeof(int),(size_t)16,fp);
@@ -52,15 +54,15 @@ body:
 		case 'o':
 			fp = fopen("save.onk","wb+");
 			if (fp == 0) {
-				fprintf(stderr,"save failed!\n");
+				printw("save failed!\n");
 				goto body;
 			}
 			fwrite(p,sizeof(int),(size_t)16,fp);
 			fclose(fp);
-			fprintf(stderr,"have saved.\n");
+			printw("have saved.\n");
 			goto body;
 		default:
-			fprintf(stderr,"Invalid Type!\n");
+			printw("Invalid Type!\n");
 			goto body;
 			break;
 	}
