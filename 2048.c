@@ -18,6 +18,8 @@ initialize:
 body:
 	input = (char)getch();
 	switch (input) {
+		case -32:
+			input = (char)getch();
 		case 'A':
 		case 'a':
 		case 'W':
@@ -26,8 +28,6 @@ body:
 		case 's':
 		case 'D':
 		case 'd':
-		case -32:
-			input = (char)getch();
 			break;
 		case 'r':
 		case 'R':
