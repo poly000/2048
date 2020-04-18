@@ -16,8 +16,8 @@ Q 退出 R 重置
 
 O 存档 L 读档
 
-编译（仅Windows）：
+编译：
 
 ```
-gcc -std=c99 2048.c -o 2048
+ gcc -O3 2048.c func.c -lcurses 
 ```
